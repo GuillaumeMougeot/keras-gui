@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import filedialog
 
-# from train import Training
+from DataTab import DataTab
 from TrainTab import TrainTab
 from TestTab import TestTab
 from constants import *
@@ -27,13 +27,21 @@ class Root(Tk):
         self.tab_parent = ttk.Notebook(self.root_frame)
 
         # Stage 3 (parent -> data - model - train - test)
+        self.data_tab = ttk.Frame(self.tab_parent, padding=PADDING)
+        self.model_tab = ttk.Frame(self.tab_parent, padding=PADDING)
         self.train_tab = ttk.Frame(self.tab_parent, padding=PADDING)
         self.test_tab = ttk.Frame(self.tab_parent, padding=PADDING)
 
-        self.tab_parent.add(self.train_tab, text="Train", image='icons/brain.ico')
+        self.tab_parent.add(self.data_tab, text="Data")
+        self.tab_parent.add(self.model_tab, text="Model")
+        self.tab_parent.add(self.train_tab, text="Train")
         self.tab_parent.add(self.test_tab, text="Test")
 
         self.tab_parent.pack(expand=YES, fill='both')
+
+        # Stage 4 (data_tab -> model_tab_frame)
+        self.data_tab_frame = DataTab(self.data_tab)
+        self.data_tab_frame.pack(fill='x')
 
         # Stage 4 (train_tab -> train_tab_frame)
         self.train_tab_frame = TrainTab(self.train_tab)
