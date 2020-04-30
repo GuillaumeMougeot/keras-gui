@@ -2,53 +2,33 @@ from tkinter import ttk
 from constants import *
 
 def init_styles():
-    style = ttk.Style()
 
     white = "#FFFFFF"
     red = "#D09696"
 
-    style.theme_create( "keras_gui", parent=style.theme_use(), settings={
-        "TFrame":
-        {
-            "configure":    {"background": white}
-        },
-        "TLabelframe":
-        {
-            "configure":    {"background": white}
-        },
-        "TLabelframe.Label":
-        {
-            "configure":    {"background": white}
-        },
-        "TNotebook": 
-        {
-            "configure":    {"tabmargins": [2, 5, 2, 0] } 
-        },
-        "TNotebook.Tab": 
-        {
-            "configure":    {"padding": [5, 1], "background": white },
-            "map":          {"background": [("selected", white)],
-                            "expand": [("selected", [1, 1, 1, 0])] } 
-        },
-        "TButton":
-        {
-            "configure":    {"background": white}
-        },
-        "TLabel":
-        {
-            "configure":    {"background": white}
-        }
-    })
+    # Main style settings
+    theme_style = ttk.Style()
+    theme_style_list = ['TFrame', 'TLabel', 'TLabelframe', 'TLabelframe.Label', 'TButton', 'TNotebook', 'TNotebook.Tab', 'TCheckbutton', 'TPanedwindow']
+    
+    ## Background setup
+    for i in range(len(theme_style_list)):
+        theme_style.configure(theme_style_list[i],background=white)
 
-    style.theme_use("keras_gui")
+    ## Frame setup
+    # theme_style.configure('TFrame', paddind=)
 
-    # white_style = ttk.Style()
-    # white_style.configure(FRAME_STYLE, background='white')
-    # white_style.configure(LABELFRAME_STYLE, background='white')
-    # white_style.configure(LABELFRAME_LABEL_STYLE, background='white')
-    # white_style.configure(BUTTON_STYLE, background='white')
+    ## Notebook tab setup
+    theme_style.configure('TNotebook.Tab', padding=[25,5], background=red)
+    # expand: enlarge the tab size when selected
+    theme_style.map('TNotebook.Tab', background=[("selected", white)], expand=[("selected", [1,1,1,0])])
 
     red_style = ttk.Style()
-    red_style.configure(ROOT_FRAME_STYLE, background='#D09696')
-    # red_style.configure(NOTEBOOK_STYLE, background='#D09696')
-    # red_style.configure(NOTEBOOK_TAB_STYLE, background='#D09696')
+    red_style_name = 'red'
+    red_style_list = ['TFrame','TNotebook', 'TButton']
+    for i in range(len(red_style_list)):
+        red_style_list[i] = red_style_name+'.'+red_style_list[i]
+        red_style.configure(red_style_list[i], background=red)
+    ## Notebook setup
+    red_style.configure('red.TNotebook', tabmargins=[1, 0, 1, 0])
+    
+
